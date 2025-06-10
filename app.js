@@ -3,6 +3,7 @@ import express from "express";
 import db from "./config/db.js";
 import usersRouter from "./routes/usersRoute.js";
 import menuRouter from "./routes/menuRoute.js";
+import passport from "./middlewares/auth.js";
 
 // create all constants
 const app = express();

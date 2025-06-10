@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { hashPassword } from "../middlewares/encrypt.js";
+import { hashPassword, check } from "../middlewares/encrypt.js";
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -41,6 +41,14 @@ userSchema.pre("save", async function (next) {
   }
   next();
 });
+
+userSchema.method.comparePassword = async function (pass) {
+  try {
+    return await check(pass, this.password);
+  } catch (err) {
+    throw err;
+  }
+};
 
 const User = new mongoose.model("user", userSchema);
 
