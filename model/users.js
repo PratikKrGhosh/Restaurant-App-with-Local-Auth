@@ -23,7 +23,9 @@ const userSchema = new mongoose.Schema({
     min: 5,
   },
   designation: {
+    type: String,
     enum: ["manager", "chef", "server", "customer"],
+    default: "customer",
   },
 });
 

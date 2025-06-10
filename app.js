@@ -7,11 +7,14 @@ import usersRouter from "./routes/usersRoute.js";
 const app = express();
 
 // all middlewares
-app.use(express.json);
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 db();
 
 // routings
 app.use("/api/user", usersRouter);
+app.get("/", (req, res) => {
+  res.status(200).send("Home");
+});
 
 export default app;
