@@ -26,7 +26,7 @@ export const updateUser = async (req, res) => {
   try {
     const username = req.params.username;
     const updatedUser = await User.updateOne({ username: username }, req.body);
-    if (!updatedUser) {
+    if (updatedUser.modifiedCount == 0) {
       res.status(404).send("No User to Update");
     }
     res.status(200).send(updatedUser);
@@ -39,7 +39,7 @@ export const deleteUser = async (req, res) => {
   try {
     const username = req.params.username;
     const deletedUser = await User.deleteOne({ username: username });
-    if (!deletedUser) {
+    if (deletedUser.deletedCount == 0) {
       res.status(404).send("User Doesn't Exist");
     }
     res.status(200).send(deletedUser);

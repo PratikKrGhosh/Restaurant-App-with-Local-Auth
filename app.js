@@ -2,6 +2,7 @@
 import express from "express";
 import db from "./config/db.js";
 import usersRouter from "./routes/usersRoute.js";
+import menuRouter from "./routes/menuRoute.js";
 
 // create all constants
 const app = express();
@@ -13,6 +14,7 @@ db();
 
 // routings
 app.use("/api/user", usersRouter);
+app.use("/api/menu", menuRouter);
 app.get("/", (req, res) => {
   res.status(200).send("Home");
 });
