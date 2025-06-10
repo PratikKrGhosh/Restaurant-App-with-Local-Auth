@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { hashPassword } from "../middlewares/encrypt.js";
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -27,6 +28,18 @@ const userSchema = new mongoose.Schema({
     enum: ["manager", "chef", "server", "customer"],
     default: "customer",
   },
+});
+
+userSchema.pre("save", async function (next) {
+  if (this.isModified("password")) {
+    try {
+      const hashed = await hashPassword(this.password);
+      this.password = hashed;
+    } catch (err) {
+      next(err);
+    }
+  }
+  next();
 });
 
 const User = new mongoose.model("user", userSchema);
